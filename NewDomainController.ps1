@@ -2,6 +2,7 @@
 #This DSC recipe add a domain controller to an existing forest
 #This script is provided as-is and is configured in push mode
 #It do not create a new forest.
+#For further direction on DSC, refer to : https://docs.microsoft.com/en-us/powershell/scripting/dsc/resources/resources?view=powershell-6
 
 #Declare the hostname for the new DC
 $server = Read-Host -Prompt "Enter the hostname for your new DC"
