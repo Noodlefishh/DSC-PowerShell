@@ -4,7 +4,7 @@
 #It do not create a new forest.
 
 #Declare the hostname for the new DC
-$server = Read-Host -Prompt "Entrer le nom du DC a configurer "
+$server = Read-Host -Prompt "Enter the hostname for your new DC"
 
 #NewDomainController is a function you will be able to call
 Configuration NewDomainController
@@ -101,5 +101,7 @@ Configuration NewDomainController
 #Start the DSC Configuration
 Start-DscConfiguration -Path C:\Path\To\DSC\Config\File\NewDomainController\ -ComputerName "YOUR-PC-NAME" -Verbose -Debug -Wait -Force
 
-#Run this if you need to install manualy a module
+#Run these command if you need to install a DSC module manualy
 #Find-Module -Name NetworkingDsc -Repository PSGallery | Install-Module
+#Find-Module -Name xActiveDirectory -Repository PSGallery | Install-Module
+#Find-Module -Name xNetworking -Repository PSGallery | Install-Module
