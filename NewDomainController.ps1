@@ -1,5 +1,6 @@
 #Jonathan Bourbonnais - 2019
 #This DSC recipe add a domain controler to an existing forest
+#This script is provided as-is and is configured in push mode
 #It do not create a new forest.
 
 #Declare the hostname for the new DC
