@@ -1,5 +1,5 @@
 #Jonathan Bourbonnais - 2019
-#This DSC recipe add a domain controler to an existing forest
+#This DSC recipe add a domain controller to an existing forest
 #This script is provided as-is and is configured in push mode
 #It do not create a new forest.
 
@@ -23,22 +23,22 @@ Configuration NewDomainController
     #You may need to install them manualy
     Import-DscResource -ModuleName xActiveDirectory
     Import-DscResource -ModuleName xNetworking
-    Import-DscResource -ModuleName NetworkingDsc     
+    Import-DscResource -ModuleName NetworkingDsc
 
-    
+
     node $server
     {
-        
+
         #Disable DHCP on the network adapter
-        NetIPInterface 'DisableDHCP' 
-        {    
+        NetIPInterface 'DisableDHCP'
+        {
             InterfaceAlias = 'Ethernet_lan'
             AddressFamily  = 'IPV4'
             Dhcp           = 'Disabled'
         }
 
         #Configure static IP adress
-        IPAddress 'NewIPV4Address' 
+        IPAddress 'NewIPV4Address'
         {
             IPAddress      = '10.40.38.110'
             InterfaceAlias = 'Ethernet_lan'
@@ -46,7 +46,7 @@ Configuration NewDomainController
             DependsOn = '[NetIPInterface]DisableDHCP'
 
         }
-        
+
         #Install ADDS
         WindowsFeature 'InstallADDomainServicesFeature'
         {
@@ -73,7 +73,7 @@ Configuration NewDomainController
         #Check if the domain exist
         xWaitForADDomain 'WaitForestAvailability'
         {
-            
+
             DomainName           = 'capitalelab.local'
             DomainUserCredential = $DomainAdministratorCredential
             RetryCount           = 10
@@ -91,7 +91,7 @@ Configuration NewDomainController
             LogPath                        = 'C:\Windows\Logs'
             SysvolPath                     = 'C:\Windows\SYSVOL'
             #SiteName                      = ''
-            #isGlobalCatalog               = $true 
+            #isGlobalCatalog               = $true
             DependsOn                      = '[xWaitForADDomain]WaitForestAvailability'
         }
 
@@ -99,7 +99,7 @@ Configuration NewDomainController
 }
 
 #Start the DSC Configuration
-Start-DscConfiguration -Path C:\Path\To\DSC\Config\File\NewDomainController\ -ComputerName "YOUR-PC-NAME" -Verbose -Debug -Wait -Force 
+Start-DscConfiguration -Path C:\Path\To\DSC\Config\File\NewDomainController\ -ComputerName "YOUR-PC-NAME" -Verbose -Debug -Wait -Force
 
 #Run this if you need to install manualy a module
 #Find-Module -Name NetworkingDsc -Repository PSGallery | Install-Module
