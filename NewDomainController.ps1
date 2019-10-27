@@ -74,7 +74,7 @@ Configuration NewDomainController
         xWaitForADDomain 'WaitForestAvailability'
         {
 
-            DomainName           = 'capitalelab.local'
+            DomainName           = 'contoso.com'
             DomainUserCredential = $DomainAdministratorCredential
             RetryCount           = 10
             RetryIntervalSec     = 120
